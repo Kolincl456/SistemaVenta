@@ -11,7 +11,7 @@ public class ProveedorDao {
     Conexion cn = new Conexion();
     PreparedStatement ps;
     public boolean RegistrarProveedor(Proveedor pr){
-        String sql = "INSERT INTO proveedor(RUC, Nombre, Telefono, Direccion, Razon)";
+        String sql = "INSERT INTO proveedor(RUC, Nombre, Telefono, Direccion, Razon) VALUES (?,?,?,?,?)";
         try{
             con = cn.getConnection();
             ps = con.prepareStatement(sql);
