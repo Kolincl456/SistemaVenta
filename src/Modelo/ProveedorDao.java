@@ -5,11 +5,13 @@ package Modelo;
  */
 
 import java.sql.*;
+import java.util.*;
 
 public class ProveedorDao {
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement ps;
+    ResultSet rs;
     public boolean RegistrarProveedor(Proveedor pr){
         String sql = "INSERT INTO proveedor(RUC, Nombre, Telefono, Direccion, Razon) VALUES (?,?,?,?,?)";
         try{
@@ -32,5 +34,28 @@ public class ProveedorDao {
                 System.out.println(e.toString());
             }
         }
+    }
+    
+    public List ListaProveedor(){
+        List<Proveedor> Listapr = new ArrayList();
+        String sql = "SELECT * FROM proveedor";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Proveedor pr = new Proveedor();
+                pr.setId(rs.getInt("Id"));
+                pr.setRuc(rs.getInt("RUC"));
+                pr.setNombre(rs.getString("Nombre"));
+                pr.setTelefono(rs.getInt("Telefono"));
+                pr.setDireccion(rs.getString("Direccion"));
+                pr.setRazon(rs.getString("Razon"));
+                Listapr.add(pr);
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return Listapr;
     }
 }

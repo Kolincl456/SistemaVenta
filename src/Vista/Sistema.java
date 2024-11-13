@@ -39,6 +39,24 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableCliente.setModel(modelo);
     }
+    
+    public void ListarProveedor(){
+        List<Proveedor> ListarPr = prDao.ListaProveedor();
+        modelo = (DefaultTableModel) TableProveedor.getModel();
+        Object[] ob = new Object[6];
+        for(int i = 0; i<ListarPr.size(); i++){
+            ob[0] = ListarPr.get(i).getId();
+            ob[1] = ListarPr.get(i).getRuc();
+            ob[2] = ListarPr.get(i).getNombre();
+            ob[3] = ListarPr.get(i).getTelefono();
+            ob[4] = ListarPr.get(i).getDireccion();
+            ob[5] = ListarPr.get(i).getRazon();
+            modelo.addRow(ob);
+        }
+        TableProveedor.setModel(modelo);
+    }
+    
+    
     public void LimpiarTable(){
         for (int i = 0; i < modelo.getRowCount(); i++){
             modelo.removeRow(i);
@@ -119,7 +137,7 @@ public class Sistema extends javax.swing.JFrame {
         btnNuevoProveedor = new javax.swing.JButton();
         txtRucProveedor = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableProveedor = new javax.swing.JTable();
+        TableProveedor = new javax.swing.JTable();
         txtNombreProveedor = new javax.swing.JTextField();
         txtTelefonoProveedor = new javax.swing.JTextField();
         txtDireccionProveedor = new javax.swing.JTextField();
@@ -189,6 +207,11 @@ public class Sistema extends javax.swing.JFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/proveedor.png"))); // NOI18N
         jButton3.setText("Proveedor");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/producto.png"))); // NOI18N
         jButton4.setText("Productos");
@@ -620,21 +643,22 @@ public class Sistema extends javax.swing.JFrame {
 
         btnNuevoProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevo.png"))); // NOI18N
 
-        tableProveedor.setModel(new javax.swing.table.DefaultTableModel(
+        TableProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "RUC", "Nombre", "Teléfono", "Dirección", "Razón Social"
+                "ID", "RUC", "Nombre", "Teléfono", "Dirección", "Razón Social"
             }
         ));
-        jScrollPane3.setViewportView(tableProveedor);
-        if (tableProveedor.getColumnModel().getColumnCount() > 0) {
-            tableProveedor.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tableProveedor.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tableProveedor.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tableProveedor.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tableProveedor.getColumnModel().getColumn(4).setPreferredWidth(70);
+        jScrollPane3.setViewportView(TableProveedor);
+        if (TableProveedor.getColumnModel().getColumnCount() > 0) {
+            TableProveedor.getColumnModel().getColumn(0).setPreferredWidth(20);
+            TableProveedor.getColumnModel().getColumn(1).setPreferredWidth(40);
+            TableProveedor.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableProveedor.getColumnModel().getColumn(3).setPreferredWidth(50);
+            TableProveedor.getColumnModel().getColumn(4).setPreferredWidth(80);
+            TableProveedor.getColumnModel().getColumn(5).setPreferredWidth(70);
         }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1134,6 +1158,13 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarProveedorActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        LimpiarTable();
+        ListarProveedor();
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1173,6 +1204,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JLabel LabelTotal;
     private javax.swing.JTable TableCliente;
     private javax.swing.JTable TableProducto;
+    private javax.swing.JTable TableProveedor;
     private javax.swing.JTable TableVenta;
     private javax.swing.JTable TableVentas;
     private javax.swing.JButton btnEditarCliente;
@@ -1248,7 +1280,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField24;
     private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField26;
-    private javax.swing.JTable tableProveedor;
     private javax.swing.JTextField txtCantidadProducto;
     private javax.swing.JTextField txtCantidadVenta;
     private javax.swing.JTextField txtCodigoProducto;
