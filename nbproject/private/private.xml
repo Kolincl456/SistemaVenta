@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Vista/Sistema.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/ClienteDAO.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/ProveedorDao.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/Cliente.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/Proveedor.java</file>
         </group>
     </open-files>
 </project-private>
