@@ -6,7 +6,7 @@ package Modelo;
  */
 import java.sql.*;
 import java.util.*;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class ProductosDao {
     Connection con;
@@ -35,6 +35,19 @@ public class ProductosDao {
             }catch(SQLException e){
                 System.out.println(e.toString());
             }
+        }
+    }
+    public void ConsultarProveedor(JComboBox proveedor){
+        String sql = "SELECT nombre FROM proveedor";
+        try{
+           con = cn.getConnection();
+           ps = con.prepareStatement(sql);
+           rs = ps.executeQuery();
+           while(rs.next()){
+               proveedor.addItem(rs.getString("Nombre"));
+           }
+        }catch(SQLException e){
+            System.out.println(e.toString());
         }
     }
 }
