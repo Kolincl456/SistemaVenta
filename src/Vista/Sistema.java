@@ -851,6 +851,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnEditarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Actualizar (2).png"))); // NOI18N
+        btnEditarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarProductoActionPerformed(evt);
+            }
+        });
 
         btnEliminarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
         btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -1324,6 +1329,29 @@ public class Sistema extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
+
+    private void btnEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProductoActionPerformed
+        // TODO add your handling code here:
+        if("".equals(txtIdProduct.getText())){
+            JOptionPane.showMessageDialog(null, "Selecciona una fila");
+        }else{
+            if(!"".equals(txtCodigoProducto.getText()) || !"".equals(txtDescripcionProducto.getText()) || !"".equals(txtCantidadProducto.getText()) || !"".equals(txtPrecioProducto.getText())){
+                pro.setCodigo(txtCodigoProducto.getText());
+                pro.setNombre(txtDescripcionProducto.getText());
+                pro.setProveedor(cbxProveedor.getSelectedItem().toString());
+                pro.setStock(Integer.parseInt(txtCantidadProducto.getText()));
+                pro.setPrecio(Double.parseDouble(txtPrecioProducto.getText()));
+                pro.setId(Integer.parseInt(txtIdProduct.getText()));
+                proDao.ModificarProductos(pro);
+                JOptionPane.showMessageDialog(null, "Producto modificado.");
+                LimpiarTable();
+                ListarProductos();
+                LimpiarProductos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Los campos están vacíos");
+            }
+        }
+    }//GEN-LAST:event_btnEditarProductoActionPerformed
 
     /**
      * @param args the command line arguments
