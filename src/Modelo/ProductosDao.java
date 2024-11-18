@@ -50,4 +50,26 @@ public class ProductosDao {
             System.out.println(e.toString());
         }
     }
+    public List ListarProductos(){
+        List<Productos> Listapro = new ArrayList();
+        String sql  = "SELECT * FROM productos";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Productos pro = new Productos();
+                pro.setId(rs.getInt("Id"));
+                pro.setCodigo(rs.getNString("Codigo"));
+                pro.setNombre(rs.getString("Nombre"));
+                pro.setProveedor(rs.getString("Proveedor"));
+                pro.setStock(rs.getInt("Stock"));
+                pro.setPrecio(rs.getInt("Precio"));
+                Listapro.add(pro);
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return Listapro;
+    }
 }
