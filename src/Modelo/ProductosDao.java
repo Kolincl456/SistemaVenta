@@ -113,5 +113,23 @@ public class ProductosDao {
             }
         }  
     }
- 
+    public Productos BuscarPro(String cod){
+        Productos producto = new Productos(); 
+        String sql = "SELECT * FROM productos WHERE Codigo = ?";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                producto.setNombre(rs.getString("Nombre"));
+                producto.setPrecio(rs.getDouble("Precio"));
+                producto.setStock(rs.getInt("Stock"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return producto;
+    }
 }
