@@ -10,7 +10,23 @@ public class VentaDao {
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement ps;
+    ResultSet rs;
     int r;
+    public int IdVenta(){
+        int id = 0;
+        String sql = "SELECT MAX(Id) FROM ventas";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }    
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return id;
+    }
     public int RegistrarVenta(Venta v){
         String sql = "INSERT INTO ventas(Cliente, Vendedor, Total) VALUES(?,?,?)";
         try{
