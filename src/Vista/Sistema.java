@@ -30,6 +30,7 @@ public class Sistema extends javax.swing.JFrame {
     VentaDao Vdao = new VentaDao();
     Detalle Dv = new Detalle();
     DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel tmp = new DefaultTableModel();
     int item;
     double Totalpagar = 0.00;
     public Sistema() {
@@ -89,8 +90,7 @@ public class Sistema extends javax.swing.JFrame {
         }
         TableProducto.setModel(modelo);
     }
-    
-    
+
     public void LimpiarTable(){
         for (int i = 0; i < modelo.getRowCount(); i++){
             modelo.removeRow(i);
@@ -137,7 +137,7 @@ public class Sistema extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         LabelTotal = new javax.swing.JLabel();
         txtNombreClienteVenta = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
+        btnGenerarVenta = new javax.swing.JButton();
         txtTelefonoCV = new javax.swing.JTextField();
         txtDireccionCV = new javax.swing.JTextField();
         txtRazonCV = new javax.swing.JTextField();
@@ -393,10 +393,10 @@ public class Sistema extends javax.swing.JFrame {
 
         LabelTotal.setText("--------");
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/print.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/print.png"))); // NOI18N
+        btnGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnGenerarVentaActionPerformed(evt);
             }
         });
 
@@ -455,7 +455,7 @@ public class Sistema extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRazonCV, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGenerarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
                         .addComponent(jLabel10)
                         .addGap(30, 30, 30)
@@ -512,7 +512,7 @@ public class Sistema extends javax.swing.JFrame {
                                     .addComponent(txtRazonCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton8)))
+                                .addComponent(btnGenerarVenta)))
                         .addContainerGap(21, Short.MAX_VALUE))))
         );
 
@@ -1451,7 +1451,7 @@ public class Sistema extends javax.swing.JFrame {
                 int stock = Integer.parseInt(txtStockDisponible.getText());
                 if(stock >= cant){
                     item = item + 1;
-                    DefaultTableModel tmp = (DefaultTableModel) TableVenta.getModel();
+                    tmp = (DefaultTableModel) TableVenta.getModel();
                     for (int i = 0; i<0; i++){
                         if(TableVenta.getValueAt(i, 1).equals(txtDescripcionVenta.getText())){
                             JOptionPane.showMessageDialog(null, "El producto ya está registrado.");
@@ -1512,11 +1512,15 @@ public class Sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtRucVentaKeyPressed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    
+    private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         // TODO add your handling code here:
         RegistrarVenta();
         RegistrarDetalle();
-    }//GEN-LAST:event_jButton8ActionPerformed
+        ActualizarStock();
+        LimpiarTableVenta();
+        LimpiarClienteVenta();
+    }//GEN-LAST:event_btnGenerarVentaActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
@@ -1575,6 +1579,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarProveedor;
     private javax.swing.JButton btnEliminarVenta;
     private javax.swing.JButton btnExcelProducto;
+    private javax.swing.JButton btnGenerarVenta;
     private javax.swing.JButton btnGuardarCliente;
     private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JButton btnGuardarProveedor;
@@ -1588,7 +1593,6 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton btnVentas;
     private javax.swing.JComboBox<String> cbxProveedor;
     private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1730,5 +1734,28 @@ public class Sistema extends javax.swing.JFrame {
             Dv.setId(id);
             Vdao.RegistrarDetalle(Dv);
         }
+    }
+    private void ActualizarStock(){
+        for(int i = 0; i < TableVenta.getRowCount(); i++){
+            String cod = TableVenta.getValueAt(i, 0).toString();
+            int cant = Integer.parseInt(TableVenta.getValueAt(i, 2).toString());
+            pro = proDao.BuscarPro(cod);
+            int StockActual = pro.getStock() - cant;
+            Vdao.ActualizarStock(StockActual, cod);
+        }
+    }
+    private void LimpiarTableVenta(){
+        tmp = (DefaultTableModel) TableVenta.getModel();
+        int fila = TableVenta.getRowCount();
+        for( int i = 0; i < fila; i++){
+            tmp.removeRow(0);
+        }
+    }
+    private void LimpiarClienteVenta(){
+        txtRucVenta.setText("");
+        txtNombreClienteVenta.setText("");
+        txtTelefonoCV.setText("");
+        txtDireccionCV.setText("");
+        txtRazonCV.setText("");
     }
 }
