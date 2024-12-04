@@ -9,6 +9,7 @@ import Modelo.Productos;
 import Modelo.ProductosDao;
 import Modelo.Venta;
 import Modelo.VentaDao;
+import Reportes.Excel;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
@@ -1413,7 +1414,7 @@ public class Sistema extends javax.swing.JFrame {
 
     private void btnExcelProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelProductoActionPerformed
         // TODO add your handling code here:
-        //Excel.reporte();
+        Excel.reporte();
     }//GEN-LAST:event_btnExcelProductoActionPerformed
 
     private void txtCodigoVentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoVentaKeyPressed

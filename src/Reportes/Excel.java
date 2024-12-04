@@ -1,3 +1,5 @@
+package Reportes;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +41,7 @@ public class Excel {
         Sheet sheet = book.createSheet("Productos");
  
         try {
-            InputStream is = new FileInputStream("src/img/logo.png");
+            InputStream is = new FileInputStream("src/Img/logo.png");
             byte[] bytes = IOUtils.toByteArray(is);
             int imgIndex = book.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
             is.close();
