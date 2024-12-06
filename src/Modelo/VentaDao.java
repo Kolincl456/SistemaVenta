@@ -5,6 +5,7 @@ package Modelo;
  */
 
 import java.sql.*;
+import java.util.*;
 
 public class VentaDao {
     Connection con;
@@ -81,5 +82,25 @@ public class VentaDao {
             System.out.println(e.toString());
             return false;
         }
+    }
+    public List Listarventas(){
+        List<Venta> ListaVenta = new ArrayList();
+        String sql  = "SELECT * FROM ventas";
+        try{
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Venta vent = new Venta();
+                vent.setId(rs.getInt("Id"));
+                vent.setCliente(rs.getNString("Cliente"));
+                vent.setVendedor(rs.getString("Vendedor"));
+                vent.setTotal(rs.getDouble("Total"));
+                ListaVenta.add(vent);
+            }
+        }catch(SQLException e){
+            System.out.println(e.toString());
+        }
+        return ListaVenta;
     }
 }
