@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/Venta.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/Detalle.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/ProductosDao.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Vista/Sistema.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/Config.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Reportes/Excel.java</file>
             <file>file:/C:/Users/USUARIO/Documents/NetBeansProjects/SistemaVentas/src/Modelo/VentaDao.java</file>
         </group>
