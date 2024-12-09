@@ -1,6 +1,8 @@
 package Modelo;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,10 +28,27 @@ public class LoginDAO {
                 l.setNombre(rs.getString("Nombre"));
                 l.setCorreo(rs.getString("Correo"));
                 l.setPassword(rs.getString("Password"));
+                l.setRol(rs.getString("Rol"));
             }
         }catch(SQLException e){
             System.out.println(e.toString());
         }
         return l;
+    }
+    public boolean Registrar(login reg){
+        String sql = "INSERT INTO Usuarios (Nombre, Correo, Password, Rol) VALUES (?, ?, ?, ?)";
+        try {
+            con = cn.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, reg.getNombre());
+            ps.setString(2, reg.getCorreo());
+            ps.setString(3, reg.getPassword());
+            ps.setString(4, reg.getRol());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
     }
 }

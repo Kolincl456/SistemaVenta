@@ -8,15 +8,17 @@ public class login {
     private String nombre;
     private String correo;
     private String password;
+    private String rol;
     
     public login(){
     }
     
-    public login(int Id, String nombre, String correo, String password) {
+    public login(int Id, String nombre, String correo, String password, String rol) {
         this.Id = Id;
         this.nombre = nombre;
         this.correo = correo;
         this.password = password;
+        this.rol = rol;
     }
 
     public int getId() {
@@ -42,5 +44,11 @@ public class login {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
